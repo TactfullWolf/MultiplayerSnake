@@ -1,0 +1,25 @@
+﻿public void DrawSnake()
+    {
+        // Set a constant radius for all segments (no growth)
+        float radius = 10f;
+
+        // Calculate the fade step based on the snake length
+        float totalLength = Snake.Count;
+
+        // Draw each segment of the snake
+        for (int i = 0; i < Snake.Count; i++)
+        {
+            // Calculate the fading factor based on the segment's position in the snake
+            float alpha = 1.0f - ((float)i / totalLength);  // Fades from head (1) to tail (0)
+
+            // Calculate gradient (simple example, could be improved)
+            Color snakeColor = new Color((byte)0, (byte)255, (byte)0, (byte)(255 * alpha));  // Neon green fading effect
+
+            // Draw the core (the inside part of the snake)
+            Raylib.DrawCircleV(Snake[i], radius, snakeColor);
+
+            // Draw outline with slightly transparent effect
+            Color outlineColor = new Color((byte)255, (byte)255, (byte)255, (byte)(255 * alpha));  // White fading outline
+            Raylib.DrawCircleLines((int)Snake[i].X, (int)Snake[i].Y, radius + 2, outlineColor);
+        }
+    }
